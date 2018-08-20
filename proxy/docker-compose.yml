@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  example_react:
+    image: nginx:alpine
+    container_name: example_react
+    volumes:
+      - ./react:/usr/share/nginx/html
+      - ./react/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "3000:3000"
+  example_vue:
+    image: nginx:alpine
+    container_name: example_vue
+    volumes:
+      - ./vue:/usr/share/nginx/html
+      - ./vue/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:8080"
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
