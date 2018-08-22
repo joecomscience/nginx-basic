@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  server_1:
+    image: gcr.io/google_containers/echoserver
+    container_name: server_1
+    ports:
+      - "3001:8080"
+  server_2:
+    image: gcr.io/google_containers/echoserver
+    container_name: server_2
+    ports:
+      - "3002:8080"
+  server_3:
+    image: gcr.io/google_containers/echoserver
+    container_name: server_3
+    ports:
+      - "3003:8080"
+  load_balance:
+      image: nginx:alpine
+      container_name: load_balance
+      ports:
+        - "3000:80"
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+        -  ./default.conf:/etc/nginx/conf.d/default.conf
